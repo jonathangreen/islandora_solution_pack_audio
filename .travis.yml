@@ -8,35 +8,18 @@ matrix:
     - php: 5.3.3
       dist: precise
       env: FEDORA_VERSION="3.5"
-    - php: 5.3.3
-      dist: precise
-      env: FEDORA_VERSION="3.6.2"
-    - php: 5.3.3
-      dist: precise
-      env: FEDORA_VERSION="3.7.0"
-    - php: 5.3.3
-      dist: precise
-      env: FEDORA_VERSION="3.8.1"
 php:
   - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
   - 7.1
 env:
   - FEDORA_VERSION="3.5"
-  - FEDORA_VERSION="3.6.2"
-  - FEDORA_VERSION="3.7.0"
   - FEDORA_VERSION="3.8.1"
 
-branches:
-  only:
-    - /^7.x/
 before_install:
   - sudo apt-get update
   - sudo apt-get install -qq lame
   - cd $HOME
-  - git clone -b 7.x git://github.com/Islandora/islandora.git
+  - git clone -b fix-test-runner https://github.com/whikloj/islandora.git
   - git clone -b 7.x git://github.com/Islandora/islandora_solution_pack_collection.git
   - export ISLANDORA_DIR=$HOME/islandora
   - $HOME/islandora/tests/scripts/travis_setup.sh
@@ -51,5 +34,3 @@ before_script:
 script:
   - $HOME/islandora/tests/scripts/travis_scripts.sh
   - $HOME/islandora/tests/scripts/run_tests.sh "Islandora Audio"
-notifications:
-  irc: "irc.freenode.org#islandora"
